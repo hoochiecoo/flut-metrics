@@ -9,9 +9,9 @@ dart_code_metrics:
     number-of-parameters: 2         # максимум параметров
     source-lines-of-code: 50
 
-  metrics-exclude:
+  metrics-include:
     - test/**
-    - lib/**
+    - lib/main.dart
 
   rules:
     - no-equal-then-else
