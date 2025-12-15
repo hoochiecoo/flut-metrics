@@ -1,0 +1,18 @@
+analyzer:
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics:
+  metrics:
+    cyclomatic-complexity: 3        # максимум
+    lines-of-code: 20               # максимум строк на метод
+    number-of-parameters: 2         # максимум параметров
+    source-lines-of-code: 50
+
+  metrics-exclude:
+    - test/**
+    - lib/**
+
+  rules:
+    - no-equal-then-else
+    - prefer-trailing-comma
