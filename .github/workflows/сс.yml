@@ -8,24 +8,22 @@ on:
 
 jobs:
   metrics:
-    name: Analyze Flutter code
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Flutter SDK с явной версией
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.13.4"  # <- укажи стабильную версию Flutter, которая тебе нужна
+          flutter-version: "3.38.5"  # Flutter с Dart >= 3.2
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4. Run dart_code_metrics
+      - name: Check Dart version
+        run: flutter --version
+
       - name: Run dart_code_metrics
         run: flutter pub run dart_code_metrics:metrics analyze lib/
