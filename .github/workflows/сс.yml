@@ -1,0 +1,40 @@
+name: Dart Code Metrics
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  metrics:
+    name: Analyze Dart code
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Dart SDK
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: dart pub get
+
+      # 4. Add dart_code_metrics (если ещё не в pubspec.yaml)
+      # (опционально, если уже есть в dev_dependencies, можно пропустить)
+      - name: Ensure dart_code_metrics
+        run: dart pub add --dev dart_code_metrics
+
+      # 5. Run metrics analysis
+      - name: Run dart_code_metrics
+        run: dart run dart_code_metrics:metrics analyze lib/
+
+      # 6. Optionally: fail on warnings (uncomment if desired)
+      # - name: Fail if issues found
+      #   run: dart run dart_code_metrics:metrics analyze lib/ --fatal-warnings
